@@ -84,7 +84,7 @@ class YourStudents extends Component {
     render() {
         return (
             <div>
-                 <h4 className="text-info text-center">{this.props.username}'s Students:</h4>
+                 <h4 className="text-info text-center">Your Students:</h4>
                 {console.log(this.state)}
 
 
