@@ -1,16 +1,11 @@
 import React, { Component } from "react";
 import Individualcard from "../components/individualCard";
-import TotalBalanceCard from "./totalBalance";
-import OwedToYou from "./owedToYou";
 import axios from "axios";
 import { Table } from 'reactstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import { withRouter } from 'react-router-dom';
 import AddStudent from "./AddStudent";
-
-var totalOwed = 0;
-var totalPaname = 0;
-let totalBalance;
+import data from "./students.json";
 
 const styles = {
     oweHeader: {
@@ -23,6 +18,7 @@ const styles = {
 
 class YourStudents extends Component {
     state = {
+        data: [],
         name: [],
         science: [],
         math: [],
@@ -111,11 +107,16 @@ class YourStudents extends Component {
                                         <th scope="col">GPA</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    
-                                                <Individualcard></Individualcard>
-                                
-                                
+                                <tbody> {
+                                    this.state.data.map(element => (
+                                                <Individualcard>
+                                                key={element.id}
+                                                id={element.id}
+                                                name={element.name}
+                                                grades={element.grades}
+                                                </Individualcard>
+                                    ))
+                                }
                             
                                 </tbody>
                             </table>

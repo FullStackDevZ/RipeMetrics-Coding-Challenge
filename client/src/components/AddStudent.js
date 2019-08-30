@@ -30,11 +30,11 @@ class AddStudent extends Component {
         this.setState({ [e.target.name]: e.target.value });
       }
 
-      handleSubmit = currentUser => event => {
+      handleSubmit = currentStudent => event => {
         event.preventDefault();
         // get our form data out of state
         const studentData = {
-            userId: currentUser,
+            userId: currentStudent,
             name: this.state.name,
             math: this.state.math,
             history: this.state.history,
@@ -50,7 +50,7 @@ class AddStudent extends Component {
       }
 
     render() {
-        const currentUser = this.props.currentUser;
+        const currentStudent = this.props.currentStudent;
         return (
             <div className="col-xs-12 bg-light p-3 rounded col-lg-6 mx-auto text-center">
                 <form>
@@ -64,7 +64,6 @@ class AddStudent extends Component {
                                     className="form-control mb-3"
                                     value={this.state.name}
                                     id="name"
-                                    placeholder="Adam"
                                     rows="1"
                                     name="name"
                                     onChange={this.handleChange}
@@ -77,7 +76,6 @@ class AddStudent extends Component {
                                     className="form-control mb-3"
                                     value={this.state.math}
                                     id="math"
-                                    placeholder=""
                                     rows="1"
                             
                                     onChange={this.handleChange}
@@ -121,7 +119,7 @@ class AddStudent extends Component {
                                 <button
                                     type="submit"
                                     className="btn btn-primary float-right mt-3"
-                                    onClick={this.handleSubmit(currentUser)}
+                                    onClick={this.handleSubmit(currentStudent)}
                                 >
                                     +Student
                         </button>

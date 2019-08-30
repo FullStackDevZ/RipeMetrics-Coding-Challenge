@@ -8,8 +8,6 @@ import Navbar from './components/navbar'
 import Home from './components/home'
 import Ledger from "./pages/Ledger"
 import Trips from "./pages/Trips"
-import TripsPaid from "./pages/TripsPaid"
-import Events from "./pages/Events"
 
 
 class App extends Component {
@@ -98,9 +96,7 @@ class App extends Component {
                     />
                     <Route path="/signup" render={() => <Signup />} />
                     <Route path="/ledger" render={() => <Ledger username={this.state.username} />} />
-                    <Route path="/events" render={() => <Events username={this.state.username} />} />
                     <Route path="/trips" render={() => <Trips owed={this.state.owed} currentUser={this.state.username} />} />
-                    <Route path="/tripsPaid" render={() => <TripsPaid owed={this.state.owed} currentUser={this.state.username} />} />
                 </div>
             </div>
         );

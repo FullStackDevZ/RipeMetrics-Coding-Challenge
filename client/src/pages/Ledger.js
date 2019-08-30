@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import Individualcard from "../components/individualCard";
-import TotalBalanceCard from "../components/totalBalance";
-import OwedToYou from "../components/owedToYou";
 import axios from "axios";
 import { Table } from 'reactstrap';
 import { ToastContainer, toast } from 'react-toastify';

@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import TotalBalanceCard from "./totalBalance";
-import TripCardHome from "./tripCardHome";
 import { Route, Link } from "react-router-dom";
 import axios from "axios"
 import logo from "./logo.png"
@@ -79,18 +77,7 @@ class Home extends Component {
                 {this.setTotals()}
                 {this.props.loggedIn ? (
                     <YourStudents></YourStudents>
-                    // <div className="col justify-content-center p-0">
-                    //     <div className="col-md-1" />
-                    //     <div className="col-md-11 col-lg-5 mx-auto p-0">
-                    //         <TotalBalanceCard userOwes={(totalOwed).toFixed(2)} userIsOwed={(totalPaid.toFixed(2))} balance={(totalPaid - totalOwed).toFixed(2)} />
-                    //     </div>
-                    //     <div className="col-md-11 col-lg-5 mx-auto p-0">
-                    //         <TripCardHome />
-                    //     </div>
-
-
-                    //     <div className="col-md-1" />
-                    // </div>
+                    
                 ) : (
                         <div className="row">
                             <div className="jumbotron rounded col-lg-16 mx-auto">

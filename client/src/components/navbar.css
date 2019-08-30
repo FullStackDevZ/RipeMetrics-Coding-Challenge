@@ -26,6 +26,9 @@ a:link {
     text-decoration: none;
 }
 
+a.dropdown-item {
+    background-color: red;
+}
 a:visited {
     text-decoration: none;
 }
