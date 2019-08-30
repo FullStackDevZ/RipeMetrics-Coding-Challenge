@@ -71,53 +71,8 @@ class Navbar extends Component {
                                             Home <span className="sr-only">(current)</span>
                                         </Link>
                                     </li>
-                                    <li class="nav-item dropdown">
-                                        <a
-                                            class="nav-link dropdown-toggle"
-                                            href="#"
-                                            id="navbarDropdown"
-                                            role="button"
-                                            data-toggle="dropdown"
-                                            aria-haspopup="true"
-                                            aria-expanded="false"
-                                        >
-                                            Events
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <Link
-                                                to="/trips"
-                                                className={
-                                                    window.location.pathname === "/trips"
-                                                        ? "nav-link active non-underline-link"
-                                                        : "nav-link non-underline-link"
-                                                }
-                                            >
-                                                Create Event
-                                            </Link>
-                                            <div class="dropdown-divider"></div>
-                                            <Link
-                                                to="/events"
-                                                className={
-                                                    window.location.pathname === "/events"
-                                                        ? "nav-link active non-underline-link"
-                                                        : "nav-link non-underline-link"
-                                                }
-                                            >
-                                                Event Log
-                                            </Link>
-                                            <div class="dropdown-divider"></div>
-                                            <Link
-                                                to="/tripsPaid"
-                                                className={
-                                                    window.location.pathname === "/tripsPaid"
-                                                        ? "nav-link active non-underline-link"
-                                                        : "nav-link non-underline-link"
-                                                }
-                                            >
-                                                Payoff Event
-                                            </Link>
-                                        </div>
-                                    </li>
+                                   
+                                    
 
 
                                     <li className="nav-item m-0">

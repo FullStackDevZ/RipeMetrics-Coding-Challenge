@@ -53,7 +53,7 @@ class AddStudent extends Component {
         const currentUser = this.props.currentUser;
         return (
             <div className="col-xs-12 bg-light p-3 rounded col-lg-6 mx-auto text-center">
-                <form onSubmit={this.handleSubmit}>
+                <form>
                     <fieldset>
                         <legend className="text-center">Add a New Student</legend>
                         <div className="row">

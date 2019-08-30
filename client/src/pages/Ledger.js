@@ -14,7 +14,7 @@ let totalBalance;
 
 const styles = {
     oweHeader: {
-        backgroundColor: "#8C0000"
+        backgroundColor: "#4C7300"
     },
     oweHeader2: {
         backgroundColor: "#4C7300"
@@ -52,7 +52,7 @@ class Ledger extends Component {
         totalOwed = 0;
         totalPaid = 0;
         this.state.owed.map(user => {
-             (totalOwed += user.amount);
+            (totalOwed += user.amount);
             if (user.isPaid === true) {
                 totalOwed -= user.amount
 
@@ -62,7 +62,7 @@ class Ledger extends Component {
         this.state.paid.forEach(user => {
             totalPaid += user.amount;
             if (user.isPaid === true) {
-                
+
                 totalPaid -= user.amount;
             }
             return totalPaid
@@ -103,9 +103,9 @@ class Ledger extends Component {
                 <h4 className="text-info text-center">{this.props.username}'s Students:</h4>
                 {console.log(this.state)}
 
-            <AddStudent></AddStudent>
-            
-            <br/>
+                <AddStudent></AddStudent>
+
+                <br />
 
                 <div className="row">
                     <div className="col-md-12 mx-auto">
@@ -124,76 +124,18 @@ class Ledger extends Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {this.state.owed.map(user => {
-                                        // totalOwed += user.amount
-                                        if (user.isPaid === false) {
-
-                                            return (
-                                                <Individualcard
-                                                    onClick={this.handleClick}
-                                                    color="danger"
-                                                    payee={user.youOwedTo}
-                                                    amount={user.amount}
-                                                    eventName={user.eventName}
-                                                    eventId={user.eventId}
-                                                    username={this.props.username}
-                                                />
-                                            );
-                                        }
-                                    })}
+                                    
+                                          <Individualcard></Individualcard>
+                                        
+                                
                                 </tbody>
                             </table>
                         </div>
 
-                        <div className="card mt-4 mb-4" style={styles.oweHeader2}>
-                            <p className="lead pl-3 align-middle pt-3 text-white">
-                                Events others owe you for:
-                            </p>
-                            <table className="table table-hover">
-                                <thead>
-                                    <tr className={"text-white table-"}>
-                                        {/* <th scope="row"><i class="p-2 fas fa-user" /></th> */}
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Math</th>
-                                        <th scope="col">History</th>
-                                        <th scope="col">English</th>
-                                        <th scope="col">GPA</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {this.state.paid.map(user => {
-                                        // totalPaid += user.amount
-                                        if (user.isPaid === false) {
-
-                                            console.log(totalPaid);
-                                            return (
-                                                <OwedToYou
-                                                    color="success"
-                                                    username={user.userId}
-                                                    amount={user.amount}
-                                                    eventName={user.eventName}
-                                                    eventId={user.eventId}
-                                                />
-                                            );
-                                        }
-                                    })}
-                                </tbody>
-                            </table>
-                        </div>
+                        
                     </div>
                 </div>
-                <div className="row">
-                    <div className="col-md-11 mx-auto">
-                        {this.setTotals()}
-
-                        <TotalBalanceCard
-                            userOwes={totalOwed.toFixed(2)}
-                            userIsOwed={totalPaid.toFixed(2)}
-                            balance={(totalPaid - totalOwed).toFixed(2)}
-                        />
-                        {console.log(totalOwed)}
-                    </div>
-                </div>
+               
             </div>
         );
     }

@@ -7,7 +7,6 @@ import { Table } from 'reactstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import { withRouter } from 'react-router-dom';
 import AddStudent from "./AddStudent";
-import Students from "./students.json";
 
 var totalOwed = 0;
 var totalPaname = 0;
@@ -31,11 +30,35 @@ class YourStudents extends Component {
         history: []
     };
 
+    componentDidMount() {
+        this.getNewEvent(this.props.username);
+      }
 
-    handleClick = (name, math, history, science, english) => {
+      componentWillReceiveProps(props) {
+        this.getNewEvent(props.username);
+    }
+
+    getNewEvent(username) {
+        console.log(this.props.username);
+
+        Promise.all([
+            axios.get("/user/findOwedByUserId/" + username),
+            axios.get("/user/findYouOwedByUserId/" + username)
+        ]).then(resultArray => {
+            this.setState({
+                ...this.state,
+                owed: resultArray[0].data,
+                paid: resultArray[1].data
+            });
+        });
+    }
+    
+
+    handleClick = (username, name, math, history, science, english) => {
         console.log("click handling! ", name, math, history, science, english);
 
         const eventToUpdate = {
+            userId: username,
             name: name,
             science: science,
             math: math,
@@ -64,11 +87,11 @@ class YourStudents extends Component {
     render() {
         return (
             <div>
-                
+                 <h4 className="text-info text-center">{this.props.username}'s Students:</h4>
                 {console.log(this.state)}
 
+
                 <AddStudent></AddStudent>
-<Students></Students>
                 <br />
 
                 <div className="row">
