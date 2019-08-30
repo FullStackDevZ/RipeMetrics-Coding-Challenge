@@ -1,0 +1,191 @@
+import React, { Component } from "react";
+import { Route, Link } from "react-router-dom";
+import "../App.css";
+import axios from "axios";
+import "./navbar.css";
+
+class Navbar extends Component {
+    constructor() {
+        super();
+        this.logout = this.logout.bind(this);
+    }
+
+    logout(event) {
+        event.preventDefault();
+        console.log("logging out");
+        axios
+            .post("/user/logout")
+            .then(response => {
+                console.log(response.data);
+                if (response.status === 200) {
+                    this.props.updateUser({
+                        loggedIn: false,
+                        username: null
+                    });
+                }
+            })
+            .catch(error => {
+                console.log("Logout error");
+            });
+    }
+
+    render() {
+        const loggedIn = this.props.loggedIn;
+        console.log("navbar render, props: ");
+        console.log(this.props);
+
+        const currentUser = this.props.currentUser;
+
+        return (
+            <div>
+                <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+                    
+                    <a className="navbar-brand" href="/">
+                        Prudent Student
+                    </a>
+                    <button
+                        className="navbar-toggler collapsed"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#navbarColor02"
+                        aria-controls="navbarColor02"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                    >
+                        <span className="navbar-toggler-icon" />
+                    </button>
+
+                    <div className="navbar-collapse collapse" id="navbarColor02">
+                        <ul className="navbar-nav submenu mr-auto m-0">
+                            {loggedIn ? (
+                                <div className="navbar-nav mr-auto m-0">
+                                    <li className="nav-item m-0">
+                                        <Link
+                                            to="/"
+                                            className={
+                                                window.location.pathname === "/"
+                                                    ? "nav-link active"
+                                                    : "nav-link"
+                                            }
+                                        >
+                                            Home <span className="sr-only">(current)</span>
+                                        </Link>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a
+                                            class="nav-link dropdown-toggle"
+                                            href="#"
+                                            id="navbarDropdown"
+                                            role="button"
+                                            data-toggle="dropdown"
+                                            aria-haspopup="true"
+                                            aria-expanded="false"
+                                        >
+                                            Events
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <Link
+                                                to="/trips"
+                                                className={
+                                                    window.location.pathname === "/trips"
+                                                        ? "nav-link active non-underline-link"
+                                                        : "nav-link non-underline-link"
+                                                }
+                                            >
+                                                Create Event
+                                            </Link>
+                                            <div class="dropdown-divider"></div>
+                                            <Link
+                                                to="/events"
+                                                className={
+                                                    window.location.pathname === "/events"
+                                                        ? "nav-link active non-underline-link"
+                                                        : "nav-link non-underline-link"
+                                                }
+                                            >
+                                                Event Log
+                                            </Link>
+                                            <div class="dropdown-divider"></div>
+                                            <Link
+                                                to="/tripsPaid"
+                                                className={
+                                                    window.location.pathname === "/tripsPaid"
+                                                        ? "nav-link active non-underline-link"
+                                                        : "nav-link non-underline-link"
+                                                }
+                                            >
+                                                Payoff Event
+                                            </Link>
+                                        </div>
+                                    </li>
+
+
+                                    <li className="nav-item m-0">
+                                        <Link
+                                            to="/ledger"
+                                            className={
+                                                window.location.pathname === "/ledger"
+                                                    ? "nav-link active non-underline-link"
+                                                    : "nav-link non-underline-link"
+                                            }
+                                        >
+                                            Your Students
+                                            </Link>
+                                    </li>
+                                </div>
+                            ) : (
+                                    ""
+                                )}
+                        </ul>
+
+                        {loggedIn ? (
+                            <ul className="navbar-nav m-0">
+                                <li className="nav-item dropdown ml-auto">
+                                    <Link
+                                        style={{ color: "rgba(255,255,255,0.5)" }}
+                                        className="nav-link dropdown-toggle text-right"
+                                        to="#"
+                                        id="navbarDropdown"
+                                        role="button"
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true"
+                                        aria-expanded="false"
+                                    >
+                                        {currentUser}
+                                    </Link>
+                                    <div
+                                        className="dropdown-menu"
+                                        aria-labelledby="navbarDropdown"
+                                    >
+                                        <Link
+                                            style={{ color: "rgba(255,255,255,0.5)" }}
+                                            className="dropdown-item"
+                                            to="#"
+                                            onClick={this.logout}
+                                        >
+                                            Logout
+                                        </Link>
+                                    </div>
+                                </li>
+                            </ul>
+                        ) : (
+                                <section className="navbar-section">
+                                    <Link to="/" className="btn btn-link text-secondary">
+                                        <span className="text-primary">Home</span>
+                                    </Link>
+                                    <Link to="/login" className="btn btn-link text-secondary">
+                                        <span className="text-primary">Login</span>
+                                    </Link>
+                                    <Link to="/signup" className="btn btn-link">
+                                        <span className="text-primary">Sign Up</span>
+                                    </Link>
+                                </section>
+                            )}
+                    </div>
+                </nav>
+            </div>
+        );
+    }
+}
+
+export default Navbar;
