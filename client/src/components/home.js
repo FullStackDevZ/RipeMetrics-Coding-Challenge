@@ -6,13 +6,14 @@ import { returnStatement } from "@babel/types";
 import YourStudents from "../components/YourStudents"
 
 
-let totalOwed = 0;
-let totalPaid = 0;
 
 class Home extends Component {
     state = {
-        paid: [],
-        owed: []
+        name: [],
+        science: [],
+        math: [],
+        english: [],
+        history: []
     }
 
 
@@ -38,43 +39,23 @@ class Home extends Component {
             .then(resultArray => {
                 this.setState({
                     ...this.state,
-                    owed: resultArray[0].data,
-                    paid: resultArray[1].data
+                    name: resultArray[0].data,
+                    science: resultArray[1].data,
+                    // math: resultArray[2].data,
+                    // english: resultArray[3].data,
+                    // history: resultArray[4].data
                 })
             });
 
-
-
     }
-    setTotals() {
-        totalOwed = 0;
-        totalPaid = 0;
-        this.state.owed.map(user => {
-            totalOwed += user.amount
-            if (user.isPaid === true) {
-                
-                totalOwed -= user.amount;
-            }
-            return totalOwed 
-        })
-        this.state.paid.forEach(user => {
-            totalPaid += user.amount
-            if (user.isPaid === true) {
-                
-                totalPaid -= user.amount;
-            }
-            return totalPaid
-        })
-
-        // console.log(this.state);
-    }
+    
 
     render() {
-        // console.log(this.props)
+        console.log(this.props)
         return (
 
             <div>
-                {this.setTotals()}
+             
                 {this.props.loggedIn ? (
                     <YourStudents></YourStudents>
                     

@@ -28,9 +28,9 @@ class AddStudent extends Component {
           super easy to update the state
         */
         this.setState({ [e.target.name]: e.target.value });
-      }
+    }
 
-      handleSubmit = currentStudent => event => {
+    handleSubmit = currentStudent => event => {
         event.preventDefault();
         // get our form data out of state
         const studentData = {
@@ -41,13 +41,45 @@ class AddStudent extends Component {
             science: this.state.science,
             english: this.state.english
         };
-    
 
-        axios.post('/user/newEvent', studentData)
-          .then((result) => {
-            //access the results here....
-          });
-      }
+
+        axios
+            .post("/user/newEvent", studentData)
+            .then(response => {
+                console.log(response);
+                this.setState({
+                    message: "Successfully updated",
+                    toDashboard: true,
+                    show: true
+                });
+                this.notify(this.state.name + " has been successfully added.");
+                this.props.history.push('/')
+                // this.resetAllState();
+            })
+            .catch(err => {
+                this.setState({
+                    message: err
+                });
+                this.notify(this.state.name + " has been successfully added.");
+            });
+    }
+
+    handleChangeEventInput = event => {
+        event.preventDefault();
+        const target = event.target;
+        const value = target.value;
+        this.setState({
+            math: value
+        });
+    };
+    handleChangeNameInput = event => {
+        event.preventDefault();
+        const target = event.target;
+        const value = target.value;
+        this.setState({
+            name: value
+        });
+    };
 
     render() {
         const currentStudent = this.props.currentStudent;
@@ -77,7 +109,7 @@ class AddStudent extends Component {
                                     value={this.state.math}
                                     id="math"
                                     rows="1"
-                            
+
                                     onChange={this.handleChange}
                                 />
                             </div>
@@ -127,10 +159,6 @@ class AddStudent extends Component {
                         </div>
                     </fieldset>
                 </form>
-
-                {/* <div>
-                    <h4>{this.state.message}</h4>
-                </div> */}
 
 
             </div>

@@ -43,8 +43,9 @@ class YourStudents extends Component {
         ]).then(resultArray => {
             this.setState({
                 ...this.state,
-                owed: resultArray[0].data,
-                paid: resultArray[1].data
+                data: resultArray[0].data,
+                name: resultArray[1].data,
+
             });
         });
     }
@@ -70,7 +71,7 @@ class YourStudents extends Component {
         .post("/user/pay", eventToUpdate)
             .then(response => {
                 console.log("there goes payment!");
-                this.notify(history + "has been paname.");
+                this.notify(history + "has been added.");
                 this.props.history.push("/ledger");
             })
             .catch(err => console.log(err));
@@ -125,18 +126,7 @@ class YourStudents extends Component {
 
                     </div>
                 </div>
-                {/* <div className="row">
-                    <div className="col-md-11 mx-auto">
-                        {this.setTotals()}
-
-                        <TotalBalanceCard
-                            userOwes={totalOwed.toFixed(2)}
-                            userIsOwed={totalPaname.toFixed(2)}
-                            balance={(totalPaname - totalOwed).toFixed(2)}
-                        />
-                        {console.log(totalOwed)}
-                    </div>
-                </div> */}
+              =
             </div>
         );
     }

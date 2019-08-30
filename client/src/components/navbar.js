@@ -72,21 +72,7 @@ class Navbar extends Component {
                                         </Link>
                                     </li>
                                    
-                                    
-
-
-                                    <li className="nav-item m-0">
-                                        <Link
-                                            to="/ledger"
-                                            className={
-                                                window.location.pathname === "/ledger"
-                                                    ? "nav-link active non-underline-link"
-                                                    : "nav-link non-underline-link"
-                                            }
-                                        >
-                                            Your Students
-                                            </Link>
-                                    </li>
+                        
                                 </div>
                             ) : (
                                     ""
