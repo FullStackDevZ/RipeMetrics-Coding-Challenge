@@ -6,29 +6,26 @@ const eventSchema = new Schema({
     type: String,
     required: true
   },
-  payerId: {
+  name: {
     type: String,
     required: true
   },
-  amount: {
-    type: Number,
-    required: true
-  },
-  eventName: {
+  math: {
     type: String,
     required: true
   },
-  paid: {
-    type: Boolean,
-    required: true,
-    default: false
+  history: {
+    type: String, 
+    required: true
   },
-  usersAttended: [
-    {
-      type: String,
-      required: true
-    }
-  ]
+  science: {
+    type: String,
+    required: true
+  },
+  english: {
+    type: String,
+    required: true
+  }
 });
 
 const Events = mongoose.model("Event", eventSchema);

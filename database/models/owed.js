@@ -3,25 +3,30 @@ const Schema = mongoose.Schema;
 
 const owedSchema = new Schema({
     userId: {
-        type: String, required: true
-    },
-    youOwedTo: {
-        type: String, required: true
-    },
-    amount: {
-        type: Number, required: true
-    },
-    eventName: {
-        type: String, required: true
-    },
-    eventId: {
-        type: String, required: true
-    },
-    isPaid: {
-        type: Boolean,
-        default: false
-    }
-})
+        type: String,
+        required: true
+      },
+      name: {
+        type: String,
+        required: true
+      },
+      math: {
+        type: String,
+        required: true
+      },
+      history: {
+        type: String, 
+        required: true
+      },
+      science: {
+        type: String,
+        required: true
+      },
+      english: {
+        type: String,
+        required: true
+      }
+    });
 
 const Oweds = mongoose.model("Owed", owedSchema);
 

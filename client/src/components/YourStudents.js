@@ -19,23 +19,23 @@ const styles = {
 class YourStudents extends Component {
     state = {
         data: [],
-        name: [],
-        science: [],
-        math: [],
-        english: [],
-        history: []
+        name: '',
+        science: '',
+        math: '',
+        english: '',
+        history: ''
     };
 
     componentDidMount() {
         this.getNewEvent(this.props.username);
-      }
+    }
 
-      componentWillReceiveProps(props) {
+    componentWillReceiveProps(props) {
         this.getNewEvent(props.username);
     }
 
     getNewEvent(username) {
-        console.log(this.props.username);
+        // console.log(this.props.username);
 
         Promise.all([
             axios.get("/user/findOwedByUserId/" + username),
@@ -49,7 +49,7 @@ class YourStudents extends Component {
             });
         });
     }
-    
+
 
     handleClick = (username, name, math, history, science, english) => {
         console.log("click handling! ", name, math, history, science, english);
@@ -64,15 +64,15 @@ class YourStudents extends Component {
 
         };
 
-      
+
 
         console.log(eventToUpdate);
-        axios           
-        .post("/user/pay", eventToUpdate)
+        axios
+            .post("/user/pay", eventToUpdate)
             .then(response => {
                 console.log("there goes payment!");
                 this.notify(history + "has been added.");
-                this.props.history.push("/ledger");
+                this.props.history.push("/individualcard");
             })
             .catch(err => console.log(err));
     };
@@ -81,11 +81,12 @@ class YourStudents extends Component {
         toast(message);
     };
 
+
     render() {
         return (
             <div>
-                 <h4 className="text-info text-center">Your Students:</h4>
-                {console.log(this.state)}
+                <h4 className="text-info text-center">Your Students:</h4>
+                {/* {console.log(this.state)} */}
 
 
                 <AddStudent></AddStudent>
@@ -109,24 +110,30 @@ class YourStudents extends Component {
                                     </tr>
                                 </thead>
                                 <tbody> {
-                                    this.state.data.map(element => (
-                                                <Individualcard>
-                                                key={element.id}
-                                                id={element.id}
+                                    this.state.data.map(element => {
+                                        return (
+                                            <Individualcard
+                                                onClick={this.handleClick}
+                                                color="danger"
                                                 name={element.name}
-                                                grades={element.grades}
-                                                </Individualcard>
-                                    ))
-                                }
-                            
+                                                math={element.math}
+                                                history={element.history}
+                                                science={element.science}
+                                                english={element.english } />
+                                        )
+
+
+
+                                    }
+                                    )}
+
                                 </tbody>
                             </table>
                         </div>
 
-
                     </div>
                 </div>
-              =
+
             </div>
         );
     }
