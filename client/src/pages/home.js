@@ -4,12 +4,12 @@ import axios from "axios"
 import logo from "../components/logo.png"
 import { returnStatement } from "@babel/types";
 // import YourStudents from "../components/YourStudents"
-import Individualcard from "../components/individualCard";
+import IndividualCard from "../components/individualCard";
 import { Table } from 'reactstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import { withRouter } from 'react-router-dom';
 import AddStudent from "../components/AddStudent";
-// import data from ".././components/student.json";
+import data from "../components/students.json";
 
 const styles = {
     oweHeader: {
@@ -23,16 +23,17 @@ const styles = {
 
 class Home extends Component {
     state = {
-        name: [],
-        science: [],
-        math: [],
-        english: [],
-        history: []
+        data,
+        name: '',
+        science: '',
+        math: '',
+        english: '',
+        history: ''
     }
 
 
     componentDidMount() {
-
+        console.log(data);
         this.getNewEvent(this.props.username);
     }
     componentWillReceiveProps(props) {
@@ -46,53 +47,80 @@ class Home extends Component {
 
         console.log(username)
 
-        Promise.all([
-            axios.get("/user/findOwedByUserId/" + username),
-            axios.get("/user/findYouOwedByUserId/" + username)
-        ])
-            .then(resultArray => {
-                this.setState({
-                    ...this.state,
-                    name: resultArray[0].data,
-                    science: resultArray[1].data,
-                    // math: resultArray[2].data,
-                    // english: resultArray[3].data,
-                    // history: resultArray[4].data
-                })
-            });
+        // Promise.all([
+        //     axios.get("/user/findOwedByUserId/" + username),
+        //     axios.get("/user/findYouOwedByUserId/" + username)
+        // ])
+        //     .then(resultArray => {
+        //         this.setState({
+        //             ...this.state,
+        //             name: resultArray[0].data,
+        //             science: resultArray[1].data,
+        //             // math: resultArray[2].data,
+        //             // english: resultArray[3].data,
+        //             // history: resultArray[4].data
+        //         })
+        //     });
 
     }
 
 
-    handleClick = (name, math, history, science, english) => {
-        console.log("click handling! ", name, math, history, science, english);
+    // handleClick = (name, math, history, science, english) => {
+    //     console.log("click handling! ", name, math, history, science, english);
 
-        const eventToUpdate = {
-            // userId: username,
-            name: name,
-            science: science,
-            math: math,
-            english: english,
-            history: history,
+    //     const eventToUpdate = {
+    //         // userId: username,
+    //         name: name,
+    //         science: science,
+    //         math: math,
+    //         english: english,
+    //         history: history,
 
-        };
+    //     };
 
 
 
-        console.log(eventToUpdate);
-        axios
-            .post("/home", eventToUpdate)
-            .then(response => {
-                console.log("there goes payment!");
-                this.notify(history + "has been added.");
-                this.props.history.push("/home");
-            })
-            .catch(err => console.log(err));
-    };
+    //     console.log(eventToUpdate);
+    //     axios
+    //         .post("/home", eventToUpdate)
+    //         .then(response => {
+    //             console.log("there goes payment!");
+    //             this.notify(history + "has been added.");
+    //             this.props.history.push("/home");
+    //         })
+    //         .catch(err => console.log(err));
+    // };
 
     notify = message => {
         toast(message);
     };
+    handleInputChange = (event) => {
+        const {name, value} = event.target;
+        this.setState({
+            [name]: value
+        })
+
+    }
+    getDataFromForm = () => {
+        var studentInfo = {
+            name: this.state.name,
+            math: this.state.math,
+            history: this.state.history,
+            science: this.state.science,
+            english: this.state.english
+        }
+        data.push(studentInfo);
+        this.setState({
+            data:data
+        })
+        console.log(this.state.data);
+
+    }
+    handleFormSubmit = e => {
+        e.preventDefault();
+        this.getDataFromForm();
+    }
+    
 
     render() {
         console.log(this.props)
@@ -103,19 +131,25 @@ class Home extends Component {
                 {this.props.loggedIn ? (
 
                     <div>
-                        <h4 className="text-info text-center">Your Students:</h4>
+                        <h4 className="text-info text-center">Your Students</h4>
                         {/* {console.log(this.state)} */}
 
 
-                        <AddStudent></AddStudent>
+                        <AddStudent
+                            handleInputChange = {this.handleInputChange}
+                            handleFormSubmit = {this.handleFormSubmit}
+                            name={this.state.name}
+                            math = {this.state.math}
+                            history={this.state.history}
+                            science={this.state.science}
+                            english={this.state.english}
+                        />
                         <br />
 
                         <div className="row">
                             <div className="col-md-12 mx-auto">
                                 <div className="card" style={styles.oweHeader}>
-                                    <p className="lead pl-3 text-white align-mnamedle pt-3">
-                                        Your Students
-                                     </p>
+                                   
                                     <table className="table table-hover">
                                         <thead>
                                             <tr className="text-white">
@@ -129,20 +163,20 @@ class Home extends Component {
                                         </thead>
                                         <tbody>
 
-                                            {this.state.name.map(user => {
-                                                return (
-                                                    <Individualcard
-                                                        onClick={this.handleClick}
-                                                        name={user.name}
-                                                        math={user.math}
-                                                        history={user.history}
-                                                        science={user.science}
-                                                        english={user.english}
+                                            
+                                                    <IndividualCard
+                                                        onClick={this.handleFormSubmit}
+                                                        name={this.state.name}
+                                                        math={this.state.math}
+                                                        history={this.state.history}
+                                                        science={this.state.science}
+                                                        english={this.state.english}
                                                     />
-                                                );
-                                            }
-                                            )
-                                            }
+                                            
+                                            
+                                            
+                                            
+                                            
 
                                         </tbody>
                                     </table>

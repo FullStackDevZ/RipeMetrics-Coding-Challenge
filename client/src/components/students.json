@@ -1,5 +1,4 @@
-{
-  "data":
+
   [{
     "_id": 1,
     "name": "Adam",
@@ -46,4 +45,4 @@
     "athlete": false,
     "grade": 12
   }]
-}
+

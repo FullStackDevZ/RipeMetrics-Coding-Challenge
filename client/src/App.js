@@ -6,8 +6,7 @@ import Signup from './components/sign-up'
 import LoginForm from './components/login-form'
 import Navbar from './components/navbar'
 import Home from './pages/home'
-import Ledger from "./pages/Ledger"
-import Trips from "./pages/Trips"
+
 
 
 class App extends Component {
@@ -90,13 +89,13 @@ class App extends Component {
                         path="/"
                         render={() => <Home username={this.state.username} loggedIn={this.state.loggedIn} />}
                     />
+                   
                     <Route
                         path="/login"
                         render={() => <LoginForm updateUser={this.updateUser} />}
                     />
                     <Route path="/signup" render={() => <Signup />} />
-                    <Route path="/ledger" render={() => <Ledger username={this.state.username} />} />
-                    <Route path="/trips" render={() => <Trips owed={this.state.owed} currentUser={this.state.username} />} />
+                   
                 </div>
             </div>
         );
